@@ -1,6 +1,8 @@
 package cz.stu.core;
 
 import cz.stu.input.KeyInput;
+import cz.stu.states.GameStateManager;
+import cz.stu.states.State;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -15,6 +17,7 @@ public class Game implements Runnable {
     private Thread thread;
     private Display display;
     private BufferStrategy bs;
+    private GameStateManager gsm;
 
     public Game() {
         init();
@@ -22,11 +25,11 @@ public class Game implements Runnable {
     }
 
     private void init() {
-        Dimension displaySize = new Dimension(CANVAS_SIZE);
-        display = new Display(TITLE, displaySize);
+        display = new Display(TITLE, CANVAS_SIZE);
 
         display.getCanvas().addKeyListener(new KeyInput());
-        //gsm.changeState(State.MENU);
+        gsm = GameStateManager.getInstance();
+        gsm.changeState(State.PLAY);
     }
 
 
@@ -36,19 +39,24 @@ public class Game implements Runnable {
         long nextUpdate = System.nanoTime();
         int frames = 0;
         int updates = 0;
+        int skippedFrames;
+        float interpolation;
 
         while (running) {
-            int skippedFrames = 0;
+            skippedFrames = 0;
             while (System.nanoTime() > nextUpdate && skippedFrames < MAX_FRAMESKIP) {
                 update();
                 updates++;
                 nextUpdate += UPDATE_INTERVAL;
                 skippedFrames++;
+                //System.out.println("UPDATED!");
             }
-
-            this.render();
+            interpolation = 1 - Math.min(1.0f, (float) ((nextUpdate - System.nanoTime()) / UPDATE_INTERVAL) );
+            //System.out.println(interpolation);
+            this.render(interpolation);
             frames++;
 
+            // statistics every second
             if(System.currentTimeMillis() - timer > 1000){
                 timer += 1000;
                 System.out.println(String.format("UPS: %s, FPS: %s", updates, frames));
@@ -77,7 +85,7 @@ public class Game implements Runnable {
         }
     }
 
-    private void render() {
+    private void render(float interpolation) {
         if(bs == null) {
             initBufferStrategy();
             return;
@@ -96,10 +104,11 @@ public class Game implements Runnable {
 
                 // Render to graphics
 
+                // render black background to prevent black magic
                 graphics.setColor(Color.BLACK);
-                graphics.fillRect(0, 0, display.getCanvas().getPreferredSize().width, display.getCanvas().getPreferredSize().height);
+                graphics.fillRect(0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height);
 
-                //gsm.render(graphics);
+                gsm.render(graphics, interpolation);
 
                 // Dispose the graphics
                 graphics.dispose();
@@ -116,9 +125,10 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        //gsm.update();
+        gsm.update();
     }
 
+    // Initialize double buffering strategy
     private void initBufferStrategy() {
         display.getCanvas().createBufferStrategy(2);
         bs = display.getCanvas().getBufferStrategy();
