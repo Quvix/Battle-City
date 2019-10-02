@@ -1,8 +1,8 @@
 package cz.stu.core;
 
 import cz.stu.input.KeyInput;
-import cz.stu.states.GameStateManager;
-import cz.stu.states.State;
+import cz.stu.state.GameStateManager;
+import cz.stu.state.State;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

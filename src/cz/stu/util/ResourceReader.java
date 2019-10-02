@@ -1,4 +1,4 @@
-package cz.stu.utils;
+package cz.stu.util;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

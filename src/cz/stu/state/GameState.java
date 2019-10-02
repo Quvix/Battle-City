@@ -1,4 +1,4 @@
-package cz.stu.states;
+package cz.stu.state;
 
 import cz.stu.core.Renderable;
 import cz.stu.core.Updatable;

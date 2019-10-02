@@ -1,4 +1,4 @@
-package cz.stu.states;
+package cz.stu.state;
 
 public enum State {
     PLAY

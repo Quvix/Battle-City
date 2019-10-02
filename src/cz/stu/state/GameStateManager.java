@@ -1,4 +1,4 @@
-package cz.stu.states;
+package cz.stu.state;
 
 import cz.stu.core.Renderable;
 import cz.stu.core.Updatable;
@@ -33,7 +33,6 @@ public class GameStateManager implements Renderable, Updatable {
         });
     }
 
-
     @Override
     public void render(Graphics2D g, float interpolation) {
         currentState.render(g, interpolation);
@@ -42,5 +41,9 @@ public class GameStateManager implements Renderable, Updatable {
     @Override
     public void update() {
         currentState.update();
+    }
+
+    public void resetCurrentState() {
+        currentState.reset();
     }
 }

@@ -1,7 +1,5 @@
 package cz.stu.core;
 
-import cz.stu.utils.ResourceReader;
-
 import javax.swing.*;
 import java.awt.*;
 
