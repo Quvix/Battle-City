@@ -12,7 +12,7 @@ public class Game implements Runnable {
     private static final double UPDATE_INTERVAL = 1_000. / UPDATES_PER_SECOND * 1_000_000;
     private static final int MAX_FRAMESKIP = 5;
     private static final String TITLE = "Tanky";
-    public static final Dimension CANVAS_SIZE = new Dimension(500, 500);
+    public static final Dimension CANVAS_SIZE = new Dimension(1280, 720);
     private boolean running = false;
     private Thread thread;
     private Display display;
@@ -103,7 +103,6 @@ public class Game implements Runnable {
                 graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
                 // Render to graphics
-
                 // render black background to prevent black magic
                 graphics.setColor(Color.BLACK);
                 graphics.fillRect(0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height);

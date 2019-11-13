@@ -2,13 +2,13 @@ package cz.stu.world.entity;
 
 import cz.stu.input.KeyInput;
 import cz.stu.input.KeyPressedListener;
+import cz.stu.world.World;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Player extends Tank implements KeyPressedListener {
-    public Player(int x, int y) {
-        super(x, y);
+    public Player(int x, int y, World world) {
+        super(x, y, world);
         KeyInput.addKeyPressedListener(this);
     }
 

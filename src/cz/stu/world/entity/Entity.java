@@ -3,6 +3,8 @@ package cz.stu.world.entity;
 import cz.stu.core.Renderable;
 import cz.stu.core.Updatable;
 
+import java.awt.*;
+
 public abstract class Entity implements Renderable, Updatable {
     private float x,y;
 
@@ -27,5 +29,9 @@ public abstract class Entity implements Renderable, Updatable {
         this.y = y;
     }
 
-    public abstract boolean intersects(Entity entity);
+    public abstract Rectangle getBounds();
+
+    public boolean intersects(Entity entity) {
+        return this.getBounds().intersects(entity.getBounds());
+    }
 }
