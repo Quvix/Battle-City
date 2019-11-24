@@ -9,10 +9,17 @@ import java.awt.image.BufferedImage;
 public class Tile extends Entity {
     public static final int SIZE = 16;
     private BufferedImage img;
+    private boolean destroyable;
+    private boolean penetrable;
+    private boolean passable;
 
-    public Tile(int x, int y, Sprite sprite) {
+    public Tile(int x, int y, Sprite sprite, boolean destroyable, boolean penetrable, boolean passable) {
         super(x, y);
+
         img = SpriteManager.getInstance().getSprite(sprite);
+        this.destroyable = destroyable;
+        this.penetrable = penetrable;
+        this.passable = passable;
     }
 
     @Override
@@ -31,5 +38,17 @@ public class Tile extends Entity {
     @Override
     public void update() {
 
+    }
+
+    public boolean isDestroyable() {
+        return destroyable;
+    }
+
+    public boolean isPenetrable() {
+        return penetrable;
+    }
+
+    public boolean isPassable() {
+        return passable;
     }
 }

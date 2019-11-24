@@ -13,7 +13,7 @@ public class KeyInput extends KeyAdapter {
     private static List<KeyReleasedListener> keyReleasedListeners = new ArrayList<>();
 
     @Override
-    public void keyPressed (KeyEvent e){
+    public void keyPressed (KeyEvent e) {
         PRESSED.add(e.getKeyCode());
         fireKeyPressedEvent(e);
     }

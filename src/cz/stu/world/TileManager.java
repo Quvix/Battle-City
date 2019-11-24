@@ -1,8 +1,9 @@
-package cz.stu.world.entity;
+package cz.stu.world;
 
 import cz.stu.core.Renderable;
 import cz.stu.core.Updatable;
 import cz.stu.gfx.Sprite;
+import cz.stu.world.entity.Tile;
 
 import java.awt.*;
 
@@ -51,14 +52,19 @@ public class TileManager implements Updatable, Renderable {
         return tiles[row][column];
     }
 
-    public void setTileAt(int row, int column, Sprite sprite) {
+    public void setTileAt(int row, int column, Sprite sprite, boolean destroyable, boolean penetrable, boolean passable) {
         if(column < 0 || column >= mapSize.width) {
             throw new ArrayIndexOutOfBoundsException(column);
         }
         if(row < 0 || row >= mapSize.height) {
             throw new ArrayIndexOutOfBoundsException(row);
         }
-        tiles[row][column] = new Tile(column * Tile.SIZE, row * Tile.SIZE, sprite);
+        tiles[row][column] = new Tile(column * Tile.SIZE, row * Tile.SIZE, sprite, destroyable, penetrable, passable);
+    }
+
+    public void removeTile(int row, int column) {
+        //System.out.println(row + " " + column);
+        tiles[row][column] = null;
     }
 
     public Dimension getMapSize() {

@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game implements Runnable {
-    private static final int UPDATES_PER_SECOND = 30;
+    public static final int UPDATES_PER_SECOND = 30;
     private static final double UPDATE_INTERVAL = 1_000. / UPDATES_PER_SECOND * 1_000_000;
     private static final int MAX_FRAMESKIP = 5;
     private static final String TITLE = "Tanky";

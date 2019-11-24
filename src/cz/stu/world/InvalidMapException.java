@@ -1,4 +1,5 @@
-package cz.stu.world.entity;
+package cz.stu.world;
 
 public class InvalidMapException extends Exception {
+
 }

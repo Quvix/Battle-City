@@ -9,6 +9,7 @@ public class Animation implements Updatable {
     private int timer;
     private int index;
     private BufferedImage[] frames;
+    private boolean looped = false;
 
     public Animation(BufferedImage[] frames) {
         this.ticksPerImage = ticksPerImage;
@@ -24,14 +25,14 @@ public class Animation implements Updatable {
         if(timer > ticksPerImage) {
             timer = 0;
             index++;
-            if(index == frames.length) {
+            if(index == frames.length && looped) {
                 index = 0;
             }
         }
     }
 
     public BufferedImage getCurrentFrame() {
-        return frames[index];
+        return frames[Math.min(index, frames.length - 1)];
     }
 
     public void reset() {
@@ -45,5 +46,17 @@ public class Animation implements Updatable {
 
     public void setTicksPerImage(int ticksPerImage) {
         this.ticksPerImage = ticksPerImage;
+    }
+
+    public boolean isLooped() {
+        return looped;
+    }
+
+    public void setLooped(boolean looped) {
+        this.looped = looped;
+    }
+
+    public boolean isFinished() {
+        return index == frames.length && !looped;
     }
 }
